@@ -3,6 +3,8 @@
 
 const num = 200;
 const section = document.querySelector('section');
+const aside = document.querySelector('aside');
+const loadingNum = document.querySelector('aside p span');
 const imgs = createImgs(section, num);
 
 window.addEventListener('mousemove', (e) => {
@@ -30,10 +32,13 @@ function createImgs(target, num) {
 		//해당 돔에 수반되는 소스이미지가 로딩완료시 실행되는 이벤트
 		img.onload = () => {
 			count++;
+			const percent = parseInt((count / num) * 100);
+			loadingNum.innerText = percent;
 			console.log('현재 로딩된 소스이미지', count);
 			if (count === num) {
 				//동적으로 만들어진 img요소의 소스이미지가 렌더링완료된 시점
 				console.log('모든 소스이미지 로딩 완료');
+				aside.remove();
 			}
 		};
 	});
